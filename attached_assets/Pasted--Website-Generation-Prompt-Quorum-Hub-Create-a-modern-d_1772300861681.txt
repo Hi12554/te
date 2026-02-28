@@ -1,0 +1,243 @@
+# 🔥 Website Generation Prompt — “Quorum Hub”
+
+Create a modern, dark-themed software distribution website called **Quorum Hub**.
+
+The design should feel sleek, minimal, and tech-focused. Use a black/charcoal background with neon blue or purple accent glows. Include smooth animations, hover effects, soft shadows, and glassmorphism UI cards. The layout should be responsive for desktop and mobile.
+
+---
+
+## 🌐 Required Pages & Functionality
+
+---
+
+## 1️⃣ Home Page
+
+**Purpose:** Introduce Quorum Hub and guide users.
+
+### Sections:
+
+* **Hero Section**
+
+  * Large logo/title: *Quorum Hub*
+  * Tagline (example: “Centralized. Streamlined. Reliable.”)
+  * Two call-to-action buttons:
+
+    * “Downloads”
+    * “Showcase”
+  * Subtle animated gradient or particle background
+
+* **Status Banner**
+
+  * Dynamic system status:
+
+    * ✅ Up 
+
+    * ❌ Down (Downgrade required) 
+  * Controlled from Admin Page
+
+* **Features Section**
+
+  * 3–4 feature cards explaining:
+
+    * Fast deployment
+    * Version control
+    * Centralized release management
+    * Community integration
+
+* **Footer**
+
+  * Discord link
+  * YouTube link
+  * Copyright
+
+---
+
+## 2️⃣ Downloads Page
+
+**Purpose:** Display downloadable files added via Admin Page.
+
+### Layout:
+
+* Grid or card-based design
+* Each download entry should include:
+
+  * Title
+  * Description
+  * Version
+  * Release date
+  * Download button (linked via URL)
+  * Status indicator (Working / Downgrade Required / Down)
+
+### Important:
+
+* When adding a download in the Admin Page:
+
+  * Use a **URL input field** (not file upload)
+  * Allow version tagging
+  * Allow marking status:
+
+    * Working
+    * Downgrade Required
+    * Down
+
+* If marked “Down”:
+
+  * Button becomes disabled
+  * Red badge appears
+
+* If marked “Downgrade Required”:
+
+  * Yellow badge
+  * Warning message shown above download button
+
+---
+
+## 3️⃣ Showcase Page
+
+**Purpose:** Display embedded YouTube videos.
+
+### Layout:
+
+* Clean grid of video cards
+
+* Each card includes:
+
+  * Embedded YouTube video (via URL)
+  * Title
+  * Description
+  * Date added
+
+* Videos are added via Admin Page
+
+---
+
+## 4️⃣ Executor Page
+
+(This is treated as a featured product page inside the platform.)
+
+### Layout:
+
+* Dedicated product-style layout
+* Product description section
+* Feature highlights
+* Two download cards:
+
+  * Old UI Version
+  * New UI Version
+
+Each should include:
+
+* Version number
+* Status (Working / Downgrade Required / Down)
+* Download button (URL-based)
+
+Include a visible banner if:
+
+* System is down
+* Downgrade required
+
+---
+
+## 5️⃣ Socials Page
+
+Simple clean layout with:
+
+* Discord invite link button
+* YouTube channel button
+* Optional embedded Discord widget
+
+---
+
+## 6️⃣ Admin Page (Protected Login Required)
+
+### Authentication:
+
+* Username & password login
+* Session-based authentication
+
+---
+
+### Admin Dashboard Sections:
+
+#### 📦 Manage Downloads
+
+* Add New Download:
+
+  * Title
+  * Description
+  * Version
+  * Download URL
+  * Status dropdown:
+
+    * Working
+    * Downgrade Required
+    * Down
+* Edit existing downloads
+* Delete downloads
+
+---
+
+#### 🎬 Manage Showcase
+
+* Add New Video:
+
+  * YouTube URL
+  * Title
+  * Description
+* Edit videos
+* Delete videos
+
+---
+
+#### ⚙ Manage Executor Versions
+
+* Modify:
+
+  * Old UI version
+  * New UI version
+* Change:
+
+  * Version number
+  * Download URL
+  * Status
+
+---
+
+#### 📡 System Status Control
+
+* Global system status dropdown:
+
+  * Operational
+  * Maintenance
+  * Offline
+* Updates status banner across entire site
+
+---
+
+## 💻 Technical Requirements
+
+* Use modern framework (Next.js, React, or plain HTML/CSS/JS with backend)
+* Backend options:
+
+  * Node.js + Express
+  * Firebase
+  * Supabase
+  * MongoDB
+* Admin routes protected
+* Data stored in database (not hardcoded)
+* Clean REST API for:
+
+  * Adding downloads
+  * Updating status
+  * Managing showcase
+
+---
+
+## 🎨 Visual Style
+
+* Dark theme
+* Blue/purple neon glow accents
+* Smooth fade transitions
+* Rounded 12–16px corners
+* Glass blur panels
+* Clean modern typography (Inter, Poppins, or similar)
