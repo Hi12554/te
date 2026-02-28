@@ -1,7 +1,8 @@
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
-import { Shield, Download, MonitorPlay, Users, Settings } from "lucide-react";
+import { Shield, Download, MonitorPlay, Users, Settings, Activity } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useQuery } from "@tanstack/react-query";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,6 +11,16 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const [location] = useLocation();
   const { user } = useAuth();
+
+  const { data: robloxVersion } = useQuery<{ clientVersionUpload: string }>({
+    queryKey: ["/api/roblox/version"],
+    queryFn: async () => {
+      const res = await fetch("https://api.weao.xyz/roblox/version");
+      if (!res.ok) throw new Error("Failed to fetch version");
+      return res.json();
+    },
+    refetchInterval: 60000,
+  });
 
   const navItems = [
     { href: "/", label: "Home", icon: Shield },
@@ -60,6 +71,26 @@ export function Layout({ children }: LayoutProps) {
                 );
               })}
             </nav>
+
+            <div className="hidden lg:flex items-center space-x-4 ml-4 px-4 py-2 bg-white/[0.03] border border-white/10 rounded-2xl">
+              <div className="flex items-center space-x-2">
+                <Activity className="w-3 h-3 text-accent animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Roblox:</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/80">
+                  {robloxVersion?.clientVersionUpload || "Loading..."}
+                </span>
+              </div>
+              <div className="w-px h-3 bg-white/10" />
+              <a 
+                href="https://sunc.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 hover:text-accent transition-colors"
+              >
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/40">sUNC:</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Check</span>
+              </a>
+            </div>
 
             <div className="md:hidden flex items-center">
               {/* Mobile menu could go here, omitting for brevity to focus on desktop premium feel */}
