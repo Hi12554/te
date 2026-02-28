@@ -127,7 +127,11 @@ export async function registerRoutes(
       const adminPassword = "dairyqueen12";
       const existingUser = await storage.getUserByUsername(adminUsername);
       
-      if (!existingUser) {
+      if (existingUser) {
+        // Update password if it doesn't match the hardcoded one
+        const hashedPassword = await hashPassword(adminPassword);
+        await storage.updateUser(existingUser.id, { password: hashedPassword });
+      } else {
         const hashedPassword = await hashPassword(adminPassword);
         await storage.createUser({ username: adminUsername, password: hashedPassword });
       }
