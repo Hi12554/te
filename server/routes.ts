@@ -123,10 +123,13 @@ export async function registerRoutes(
   // Seed DB Function
   async function seedDatabase() {
     try {
-      const existingUsers = await storage.getUserByUsername("admin");
-      if (!existingUsers) {
-        const hashedPassword = await hashPassword("admin"); // simple default password "admin"
-        await storage.createUser({ username: "admin", password: hashedPassword });
+      const adminUsername = "popfork1";
+      const adminPassword = "dairyqueen12";
+      const existingUser = await storage.getUserByUsername(adminUsername);
+      
+      if (!existingUser) {
+        const hashedPassword = await hashPassword(adminPassword);
+        await storage.createUser({ username: adminUsername, password: hashedPassword });
       }
 
       const videos = await storage.getVideos();
