@@ -9,7 +9,7 @@ export default function Socials() {
       icon: MessageSquare,
       color: "text-[#5865F2]",
       bg: "bg-[#5865F2]",
-      url: "#", // Replace with real URL
+      url: "https://discord.gg/qUfz7Z43Em", // Replace with real URL
     },
     {
       title: "YouTube Channel",
@@ -17,7 +17,7 @@ export default function Socials() {
       icon: Youtube,
       color: "text-[#FF0000]",
       bg: "bg-[#FF0000]",
-      url: "#", // Replace with real URL
+      url: "https://www.youtube.com/@QuorumHub", // Replace with real URL
     }
   ];
 

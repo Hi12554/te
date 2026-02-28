@@ -22,10 +22,10 @@ export default function Downloads() {
     <div className="space-y-12">
       <div className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">
-          Releases
+          Downloads
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Download the latest versions of Quorum. Always ensure you are downloading from this official source.
+          All official Quorum DLL files, always up-to-date. Click to download any component.
         </p>
       </div>
 
