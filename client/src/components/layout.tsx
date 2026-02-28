@@ -12,14 +12,16 @@ export function Layout({ children }: LayoutProps) {
   const [location] = useLocation();
   const { user } = useAuth();
 
-  const { data: robloxVersion } = useQuery<{ clientVersionUpload: string }>({
-    queryKey: ["/api/roblox/version"],
+  const { data: robloxVersion } = useQuery<{ version: string }>({
+    queryKey: ["/api/proxy/roblox-version"],
     queryFn: async () => {
-      const res = await fetch("https://api.weao.xyz/roblox/version");
+      const res = await fetch("/api/proxy/roblox-version");
       if (!res.ok) throw new Error("Failed to fetch version");
-      return res.json();
+      const data = await res.json();
+      return data;
     },
     refetchInterval: 60000,
+    placeholderData: { version: "Checking..." }
   });
 
   const navItems = [
@@ -77,7 +79,7 @@ export function Layout({ children }: LayoutProps) {
                 <Activity className="w-3 h-3 text-accent animate-pulse" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Roblox:</span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/80">
-                  {robloxVersion?.clientVersionUpload || "Loading..."}
+                  {robloxVersion?.version || "Loading..."}
                 </span>
               </div>
               <div className="w-px h-3 bg-white/10" />
