@@ -146,14 +146,12 @@ export async function registerRoutes(
         await storage.createDownload({
           title: "Quorum Client v1.0",
           description: "Stable client release.",
-          version: "1.0.0",
           url: "https://example.com/download/v1",
           status: "working"
         });
         await storage.createDownload({
           title: "Quorum Legacy",
           description: "Older version for compatibility.",
-          version: "0.9.0",
           url: "https://example.com/download/legacy",
           status: "downgrade_required"
         });

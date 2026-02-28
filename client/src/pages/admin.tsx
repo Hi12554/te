@@ -85,7 +85,7 @@ export default function Admin() {
         {[
           { id: "downloads", label: "Downloads" },
           { id: "videos", label: "Showcase" },
-          { id: "settings", label: "Global Settings" }
+          { id: "settings", label: "Executor" }
         ].map(tab => (
           <button
             key={tab.id}
@@ -116,16 +116,16 @@ function DownloadsAdmin() {
   const deleteMutation = useDeleteDownload();
   
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ title: "", description: "", version: "", url: "", status: "working" });
+  const [form, setForm] = useState({ title: "", description: "", url: "", status: "working" });
 
   const resetForm = () => {
-    setForm({ title: "", description: "", version: "", url: "", status: "working" });
+    setForm({ title: "", description: "", url: "", status: "working" });
     setEditingId(null);
   };
 
   const handleEdit = (d: Download) => {
     setEditingId(d.id);
-    setForm({ title: d.title, description: d.description, version: d.version, url: d.url, status: d.status });
+    setForm({ title: d.title, description: d.description, url: d.url, status: d.status });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -148,7 +148,6 @@ function DownloadsAdmin() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-sm focus:border-primary focus:outline-none" placeholder="Title" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required />
           <textarea className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-sm focus:border-primary focus:outline-none h-24 resize-none" placeholder="Description" value={form.description} onChange={e => setForm({...form, description: e.target.value})} required />
-          <input className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-sm focus:border-primary focus:outline-none" placeholder="Version (e.g. 1.0.0)" value={form.version} onChange={e => setForm({...form, version: e.target.value})} required />
           <input className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-sm focus:border-primary focus:outline-none" placeholder="Download URL" value={form.url} onChange={e => setForm({...form, url: e.target.value})} required />
           <select className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-sm focus:border-primary focus:outline-none text-white" value={form.status} onChange={e => setForm({...form, status: e.target.value})}>
             <option value="working" className="bg-background">Working</option>
@@ -174,7 +173,6 @@ function DownloadsAdmin() {
             <div>
               <div className="flex items-center space-x-2">
                 <h4 className="font-bold text-white">{d.title}</h4>
-                <span className="text-xs bg-white/10 px-2 py-0.5 rounded text-muted-foreground">v{d.version}</span>
                 <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${d.status === 'working' ? 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10' : 'border-red-500/30 text-red-400 bg-red-500/10'}`}>
                   {d.status.replace('_', ' ')}
                 </span>
@@ -279,40 +277,19 @@ function SettingsAdmin() {
     await updateSettings.mutateAsync(form);
   };
 
-  const statusOptions = ["operational", "maintenance", "offline"];
-  const uiStatusOptions = ["working", "down", "updating"];
+  const statusOptions = ["working", "downgrade_required", "down"];
 
   if (!settings) return <div>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl">
-      <div className="p-6 bg-primary/5 border border-primary/20 rounded-xl space-y-4">
-        <h3 className="text-lg font-bold text-primary flex items-center">
-          <ShieldAlert className="w-5 h-5 mr-2" /> Global Status Banner
-        </h3>
-        <div>
-          <label className="block text-sm text-muted-foreground mb-2">System Status</label>
-          <select 
-            className="w-full md:w-1/2 bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:border-primary focus:outline-none"
-            value={form.systemStatus || ""}
-            onChange={e => setForm({...form, systemStatus: e.target.value})}
-          >
-            {statusOptions.map(o => <option key={o} value={o} className="bg-background">{o.toUpperCase()}</option>)}
-          </select>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4 border border-white/10 p-6 rounded-xl">
           <h3 className="text-lg font-bold">New UI Config</h3>
           <div>
-            <label className="block text-xs text-muted-foreground mb-1">Version</label>
-            <input className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none" value={form.newUiVersion || ""} onChange={e => setForm({...form, newUiVersion: e.target.value})} />
-          </div>
-          <div>
             <label className="block text-xs text-muted-foreground mb-1">Status</label>
             <select className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none" value={form.newUiStatus || ""} onChange={e => setForm({...form, newUiStatus: e.target.value})}>
-              {uiStatusOptions.map(o => <option key={o} value={o} className="bg-background">{o}</option>)}
+              {statusOptions.map(o => <option key={o} value={o} className="bg-background">{o.replace('_', ' ')}</option>)}
             </select>
           </div>
           <div>
@@ -324,13 +301,9 @@ function SettingsAdmin() {
         <div className="space-y-4 border border-white/10 p-6 rounded-xl">
           <h3 className="text-lg font-bold text-muted-foreground">Old UI Config</h3>
           <div>
-            <label className="block text-xs text-muted-foreground mb-1">Version</label>
-            <input className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none" value={form.oldUiVersion || ""} onChange={e => setForm({...form, oldUiVersion: e.target.value})} />
-          </div>
-          <div>
             <label className="block text-xs text-muted-foreground mb-1">Status</label>
             <select className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none" value={form.oldUiStatus || ""} onChange={e => setForm({...form, oldUiStatus: e.target.value})}>
-              {uiStatusOptions.map(o => <option key={o} value={o} className="bg-background">{o}</option>)}
+              {statusOptions.map(o => <option key={o} value={o} className="bg-background">{o.replace('_', ' ')}</option>)}
             </select>
           </div>
           <div>

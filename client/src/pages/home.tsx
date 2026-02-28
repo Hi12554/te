@@ -50,16 +50,16 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className={`
             w-full max-w-xl mx-auto p-3 rounded-full border backdrop-blur-xl flex items-center justify-center space-x-3
-            ${settings.systemStatus.toLowerCase() === 'operational' 
+            ${settings.newUiStatus?.toLowerCase() === 'working' 
               ? 'bg-emerald-500/5 border-emerald-500/20 text-emerald-400 box-glow-emerald shadow-[0_0_20px_rgba(52,211,153,0.1)]' 
-              : settings.systemStatus.toLowerCase() === 'maintenance'
+              : settings.newUiStatus?.toLowerCase() === 'downgrade_required'
               ? 'bg-yellow-500/5 border-yellow-500/20 text-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.1)]'
               : 'bg-red-500/5 border-red-500/20 text-red-400 shadow-[0_0_20px_rgba(248,113,113,0.1)]'}
           `}
         >
           <div className="w-2 h-2 rounded-full bg-current animate-pulse shadow-[0_0_10px_currentColor]" />
           <span className="font-display text-xs font-bold tracking-[0.2em]">
-            SYSTEM {settings.systemStatus.toUpperCase()}
+            SYSTEM {(settings.newUiStatus || 'OFFLINE').toUpperCase()}
           </span>
         </motion.div>
       )}

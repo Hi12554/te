@@ -49,11 +49,7 @@ export default function Downloads() {
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
                 
-                <div className="flex justify-between items-start mb-4">
-                  <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1 text-xs font-medium">
-                    <span>v{item.version}</span>
-                  </div>
-                  
+                <div className="flex justify-end items-start mb-4">
                   <div className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg border ${config.bg} ${config.border} ${config.color} text-xs font-bold uppercase tracking-wider`}>
                     <StatusIcon className="w-3.5 h-3.5" />
                     <span>{item.status.replace('_', ' ')}</span>

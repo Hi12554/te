@@ -12,7 +12,6 @@ export const downloads = pgTable("downloads", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
-  version: text("version").notNull(),
   url: text("url").notNull(),
   status: text("status").notNull().default("working"), 
   createdAt: timestamp("created_at").defaultNow(),
@@ -28,11 +27,8 @@ export const videos = pgTable("videos", {
 
 export const settings = pgTable("settings", {
   id: text("id").primaryKey(),
-  systemStatus: text("system_status").notNull().default("operational"),
-  oldUiVersion: text("old_ui_version").notNull().default("1.0.0"),
   oldUiUrl: text("old_ui_url").notNull().default(""),
   oldUiStatus: text("old_ui_status").notNull().default("working"),
-  newUiVersion: text("new_ui_version").notNull().default("2.0.0"),
   newUiUrl: text("new_ui_url").notNull().default(""),
   newUiStatus: text("new_ui_status").notNull().default("working"),
 });
